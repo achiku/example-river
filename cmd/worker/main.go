@@ -4,7 +4,6 @@ import (
 	"context"
 	"fmt"
 	"log"
-	"os"
 
 	rivertest "github.com/achiku/example-river"
 	"github.com/jackc/pgx/v5/pgxpool"
@@ -20,9 +19,9 @@ func main() {
 	}
 
 	ctx := context.Background()
-	dbPool, err := pgxpool.New(ctx, os.Getenv("postgres://river@localhost:5432/river"))
+	dbPool, err := pgxpool.New(ctx, "postgres://river@localhost:5432/river")
 	if err != nil {
-		log.Fatal("pgxpool.New failed")
+		log.Fatalf("pgxpool.New failed: %s", err)
 	}
 
 	riverClient, err := river.NewClient(riverpgxv5.New(dbPool), &river.Config{
@@ -32,12 +31,12 @@ func main() {
 		Workers: workers,
 	})
 	if err != nil {
-		log.Fatal("river.NewClient failed")
+		log.Fatalf("river.NewClient failed: %s", err)
 	}
 
 	// Run the client inline. All executed jobs will inherit from ctx:
 	if err := riverClient.Start(ctx); err != nil {
-		// handle error
+		log.Fatalf("riverClient.Start failed: %s", err)
 	}
 	log.Println("started")
 	<-ctx.Done()

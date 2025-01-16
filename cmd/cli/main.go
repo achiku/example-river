@@ -44,4 +44,8 @@ func main() {
 	if err != nil {
 		log.Fatalf("riverClient.InsertTx failed: %s", err)
 	}
+
+	if err := tx.Commit(ctx); err != nil {
+		log.Fatalf("tx.Commit failed: %s", err)
+	}
 }
