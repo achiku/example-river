@@ -89,8 +89,8 @@ river:river:[local]:dev 15:52 => \dt
 
 ## code
 
-- xx
+- https://github.com/achiku/example-river/blob/main/river.go
 
 ## test
 
-- xx
+- https://github.com/achiku/example-river/blob/main/river_test.go

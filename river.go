@@ -17,8 +17,6 @@ func (SortArgs) Kind() string {
 }
 
 type SortWorker struct {
-	// An embedded WorkerDefaults sets up default methods to fulfill the rest of
-	// the Worker interface:
 	river.WorkerDefaults[SortArgs]
 }
 
